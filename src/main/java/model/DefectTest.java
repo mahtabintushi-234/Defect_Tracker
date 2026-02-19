@@ -89,5 +89,18 @@ public class DefectTest {
         // Verify that the created date is updated
         assertEquals(newCreatedDate, defect.getCreatedDate());
     }
+    @Test
+    public void testSetInvalidStatus() {
+        Defect defect = new Defect("D001", "NullPointerException", "Critical", "John Doe");
+        assertThrows(IllegalArgumentException.class, () -> defect.setStatus("InvalidStatus"));
+    }
+    @Test
+    public void testReassignDefectAfterResolved() {
+        Defect defect = new Defect("D001", "NullPointerException", "Critical", "John Doe");
+        defect.setStatus("Resolved");
+        defect.setAssignedTo("Jane Smith");
+        assertEquals("Jane Smith", defect.getAssignedTo()); // After resolution, reassign
+    }
+
 
 }
